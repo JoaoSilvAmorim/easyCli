@@ -1,0 +1,191 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Royal</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+   <!-- <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css"> -->
+   <!-- <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script> -->
+   <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+  <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+
+  
+
+<style>
+
+          .apexcharts-legend-text{
+            color: white !important
+          }
+
+          label{
+            color: white !important;
+          }
+
+          tspan{
+            color: white !important;
+          }
+
+          title{
+            color: white !important;
+          }
+
+          td, th {
+            padding: 0;
+            background: #343E59;
+            color: white;
+
+         }
+
+          body {
+          background: #343E59;
+          font-family: Arial, Helvetica, sans-serif;
+          }
+
+          .body-bg {
+            background: #F3F4FA !important;
+          }
+
+          h1, h2, h3, h4, h5, h6, strong {
+            font-weight: 600;
+            color: white;
+          }
+
+          .content-area {
+            max-width: 1280px;
+            margin: 0 auto;
+          }
+
+          .box {
+            background-color: #2B2D3E;
+            padding: 25px 20px;
+          }
+
+          .shadow {
+            box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+          }
+          .sparkboxes .box {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-shadow: 0 1px 1px 1px #666;
+            box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+            position: relative;
+            border-radius: 5px;
+          }
+
+          .sparkboxes .box .details {
+            position: absolute;
+            color: #fff;
+            transform: scale(0.7) translate(-22px, 20px);
+          }
+          .sparkboxes strong {
+            position: relative;
+            z-index: 3;
+            top: -8px;
+            color: #fff;
+          }
+
+
+          .sparkboxes .box1 {
+            background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
+          }
+
+          .sparkboxes .box2 {
+            background-image: linear-gradient( 135deg, #2AFADF 10%, #4C83FF 100%);
+          }
+
+          .sparkboxes .box3 {
+            background-image: linear-gradient( 135deg, #FFD3A5 10%, #FD6585 100%);
+          }
+
+          .sparkboxes .box4 {
+            background-image: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+          }
+
+          /* fusionexport btn CSS START */
+          #fusionexport-btn {
+            min-width: 169px;
+            min-height: 38px;
+            text-align: center;
+          }
+
+          #fusionexport-btn .span {
+            display: inline-block;
+          }
+
+          .spinner-border {
+            display: none;
+          }
+
+          #fusionexport-btn[disabled] {
+            cursor: wait;
+          }
+
+          #fusionexport-btn[disabled] .spinner-border {
+            display: inline-block;
+          }
+
+          #fusionexport-btn[disabled] .btn-text {
+            display: none;
+          }
+
+</style>
+
+    <script>
+
+    </script>
+</head>
+
+
+<body>
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    
+
+    $(document).change(function(){
+      $("#horaFiltro").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+   /* $(function() {
+      $('.selectpicker').selectpicker();
+    }); */
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script src="static/royalcontrol/js/index.js"></script>
+
+</html>

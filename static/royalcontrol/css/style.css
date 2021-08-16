@@ -1,0 +1,7 @@
+.divCad{
+    max-width: 55%;
+    max-height: 55%;  
+    position: relative; 
+    float: left;
+    background: red;
+}

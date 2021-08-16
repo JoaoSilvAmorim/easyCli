@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>Adicionar atendimento</h3>
+{% if form.errors %}
+  <ul>
+    {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+        <div class="alert alert-primary" style="background-color: rgb(0, 0, 36); max-width: 50%;" role="alert">
+            {{error}}
+        </div>
+        {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %} 
+
+<div class="card" >
+    <div style="margin-left: 25px;" style=" max-width: 40%;
+    max-height: 40%;" class="card-body">
+        <form action="" method="POST" style="max-width: 45%;">
+            {% csrf_token %}
+            <div style="float:right; margin-top: 8px;">
+<br>
+                <button><a href="{% url 'createEmpresa' %}">Cadastrar empresa</a></button>
+                <button><a href="{% url 'motivoChamado' %}">Adicionar motivo</a></button>
+                <button><a href="{% url 'graficosRegistro' %}">Relatórios</a></button>
+            </div>
+
+            <div style="width: 200px;">
+                <label for="nomeCliente">Selecione a empresa</label>
+                <select  name="empresa" class="form-control selectpicker" id="select-country" data-live-search="true">
+                    <option>Selecionar</option>
+                    {% for empresa in empresas %}
+                         <option value="{{ empresa.id }}">{{ empresa.nomeFantasia }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+<br>
+            <div style="width: 200px;">
+                <label for="">Motivo do chamado</label>
+                <select style="width: 200px;" name="motivoChamado" class="form-control selectpicker" id="select-country" data-live-search="true">
+                    <option>Selecionar</option>
+                    {% for motivo in motivos %}
+                        <option value="{{ motivo.id }}">{{ motivo.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+<br>
+                <label for="nomeCliente">Inicio</label>
+                <input name="inicio" type="datetime-local" name="horaIncial">
+
+                <label for="nomeCliente">Fim</label>
+                <input name='fim' type="datetime-local" name="horaFinal">
+<br><br>
+            </div>
+
+            <div>
+                <div style="width: 200px; float: left;">
+                    <label for="">Status</label>
+                    <select style="width: 200px;" name="status" class="form-control">
+                        <option value="concluido">Concluído</option>
+                        <option value="pendente">Pendente</option>
+                    </select>
+                </div>
+
+                <div style="width: 200px; float: left; margin-left: 10px;">
+                    <label for="">Tipo</label>
+                    <select style="width: 200px;" name="tipo" class="form-control">
+                        <option value="presencial">Presencial</option>
+                        <option value="virtual">Virtual</option>
+                    </select>
+                </div>
+            </div>
+
+           
+            <div style="width: 200px;">
+                <label for="">Sistema</label>
+                <select style="width: 200px;" name="sistema" class="form-control">
+                    <option>Selecionar</option>
+                    {% for sistema in sistemas %}
+                        <option value="{{ sistema.nome }}">{{ sistema.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div style="width: 200px; ">
+                <label for="">Atendente</label>
+                <select style="width: 200px;" name="atendente" class="form-control">
+                    <option>Selecionar</option>
+                    {% for atendente in atendentes %}
+                        <option value="{{ atendente.nome }}">{{ atendente.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+          
+
+            <label for="nome">Solução do problema</label>
+            <textarea style="width: 300px;" class="form-control" name="solucao" id="" rows="3"></textarea>
+<br>
+            <button onclick="funcao1()"  type="submit" class="btn btn-success mt-2">Finalizar</button>
+        </form>
+    </div>
+<br>
+
+       <!--  <label for="nomeCliente">Test data</label>
+        <input name="inicio" type="datetime-local" format="dd/mm/YY" class="horaFiltro" id="horaFiltro">  -->      
+
+<div class="container" style="width: 100%;">
+    <label for="">Pesquisar</label>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar...">
+    <br>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Empresa</th>
+        <th scope="col">Atendente</th>
+        <th scope="col">Sistema</th>
+        <th scope="col">Motivo</th>
+        <th scope="col">Data Inicio</th>
+        <th scope="col">Data Fim</th>
+        <th scope="col">Status</th>
+        <th scope="col">Editar</th>
+        </tr>
+      </thead>
+
+      <tbody id="myTable">
+        {% for controle in controles %}
+          <tr>
+            <td scope="row">{{ forloop.counter }}</td>
+            <td style="background: #343E59;">{{ controle.empresa.nomeFantasia }}</td>
+            <td>{{ controle.atendente }}</td>
+            <td>{{ controle.sistema }}</td>
+            <td>{{ controle.motivoChamado.nome }}</td>
+            <td>{{ controle.inicio|date:"d/m/Y" }} Hora:{{ controle.inicio|date:"h:i" }}</td>
+            <td>{{ controle.inicio|date:"d/m/Y" }} Hora:{{ controle.inicio|date:"h:i" }}</td>
+            <td>{{ controle.status }}</td>
+            <td><button  class="btn btn-warning"><a href="{% url 'redUpdate' controle.id %}">Editar</a></button></td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+
+<div style="width: 100%;">
+    
+</div>
+
+</div>
+
+
+{% endblock %}
+   

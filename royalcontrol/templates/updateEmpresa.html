@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Editar empresa</h3>
+
+{% if form.errors %}
+  <ul>
+    {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+            <h4>{{error}}</h4>
+        {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %} 
+    
+<div class="card">
+    <div style="margin-left: 25px;" class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="cnpjCpf">CPF/CNPJ
+            <input size="40" name="cnpjCpf" onblur="consultaCNPJ(this.value);" class="form-control" value="{{ obj.cnpjCpf }}"></label>
+    
+            <label for="nome">Nome
+            <input size="40" type="text" name="nome" id="nome" class="form-control" value="{{ obj.nome }}"></label>
+
+            <label for="nomeFantasia">Nome fantasia
+            <input size="40" name="nomeFantasia" id="nomeFantasia" class="form-control" value="{{ obj.nomeFantasia }}"></label>
+
+           
+            <label for="email">Email
+            <input size="40" name="email" id="email" class="form-control" value="{{ obj.email }}"></label>
+
+            <a href="{% url 'createEmpresa' %}"><button>Voltar ao cadastro de empresas</button></a>
+<br><br>
+            <label>Cep <input value="{{ obj.endereco.cep }}" name="endereco[cep]" type="text" id="cep" value="" size="10" maxlength="9" class="form-control" /></label><br />
+            <label>Rua<input value="{{ obj.endereco.rua }}" name="endereco[rua]" type="text" id="rua" size="60" class="form-control" /></label><br />
+            <label>Bairro <input value="{{ obj.endereco.bairro }}" name="endereco[bairro]" type="text" id="bairro" size="40" class="form-control" class="form-control" /></label><br />
+            <label>Cidade <input value="{{ obj.endereco.cidade }}" name="endereco[cidade]" type="text" id="cidade" size="40" class="form-control" /></label><br />
+            <label>Estado <input value="{{ obj.endereco.uf }}" name="endereco[uf]" type="text" id="uf" size="2" class="form-control" /></label><br />
+<br>
+            <button onclick="funcao1()" type="submit"  class="btn btn-success mt-2">Salvar</button>
+        </form>
+    </div>
+</div>
+
+</div>
+
+
+{% endblock %}

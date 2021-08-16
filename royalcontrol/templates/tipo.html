@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Defina um tipo de problema</h3>
+<div class="card" style="max-width: 30%; max-height: 30%;">
+    <div style="margin-left: 25px;" class="card-body">
+        <form action="" method="POST">
+            <label for="nome">Nome</label>
+            <input style="width: 200px" type="text" name="nome" class="form-control" required>
+<br>
+            <button type="submit" class="btn btn-success mt-2">Finalizar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

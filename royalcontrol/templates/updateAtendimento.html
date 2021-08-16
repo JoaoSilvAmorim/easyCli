@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <div style="margin-left: 25px;" style=" max-width: 40%;
+    max-height: 40%;" class="card-body">
+        <h3>Editar registro</h3>
+<br>
+    
+        <form action="{% url 'updateAtendimento' %}" method="POST" style="max-width: 45%;">
+            {% csrf_token %}
+            <div style="float:right; margin-top: 8px;">
+<br>
+                        <button><a href="{% url 'cadAtendimento' %}">Voltar a pagina de atendimento</a></button>
+            </div>
+           
+            <div>
+                <label for="nomeCliente">Empresa</label>
+                <select style="width: 200px;" class="form-control" name="empresa" id="empresa">
+                    <option value="{{ data.empresa.nome }}">{{ data.empresa.nome }}</option>
+                </select>
+            </div>
+<br>
+            <div class="">
+                <label for="">Motivo do chamado</label>
+                <select style="width: 200px;" class="form-control" name="motivoChamado" id="motivoChamado">
+                    <option value="{{ data.motivo.id }}">{{ data.motivoChamado.nome }}</option>
+                </select>
+            </div>
+            <div>
+<br><br>
+            <div>
+                <label for="">Status</label>
+                <select style="width: 200px;" class="form-control" name="status" id="status">
+                    <option value="{{data.status}}">Status atual: {{ data.status }}</option>
+                    <option value="concluido">Concluído</option>
+                    <option value="pendente">Pendente</option>
+                </select>
+            </div>
+
+            </div>
+            <div>
+                <label for="">Sistema</label>
+                <select style="width: 200px;" class="form-control" name="sistema" id="sistema">
+                    <option value="{{ data.sistema.nome }}">{{ data.sistema }}</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="">Atendente</label>
+                <select style="width: 200px;" name="atendente" class="form-control" id="">
+                    <option value="{{ atendente.nome }}">{{ data.atendente }}</option>
+                </select>
+            </div>
+            
+            <label for="nome">Solução do problema</label>
+            <textarea style="width: 300px;" class="form-control" name="solucao" rows="3" value="{{data.solucao}}">{{data.solucao}}</textarea>
+<br>
+            <button onclick="funcao1()"  type="submit" class="btn btn-success mt-2">Finalizar</button>
+            <input type="hidden" value="{{ data.id }}" name="id">
+        </form>
+
+        
+    </div>
+
+{% endblock %}

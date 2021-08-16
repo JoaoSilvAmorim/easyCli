@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style='border: 5px solid white;'>
+
+    <h3>Filtrar por data</h3>
+    <form style="margin-left: 5px;" action="{% url 'filtrarRelatorio' %}" method="POST" >
+      {% csrf_token %}
+        <label for="nomeCliente">Inicio</label>
+          <input name="dataInicial" type="date" name="horaIncial">
+          
+          <label for="nomeCliente">Fim</label>
+           <input name="dataFinal" type="date" name="horaFinal">
+  
+          <button onclick="funcao1()" type="submit"  class="btn btn-success mt-2">Filtrar</button>
+
+          <button style="margin-left: 10%;"><a href="{% url 'cadAtendimento' %}">Voltar a página de atendimento</a></button>
+    </form>
+</div>
+
+<div>
+<div style="float: left; width: 48%; height: 50%; border: 5px solid white;">
+
+  <h3 style="margin-left: 10px;">Atendimentos</h3>
+      <div id="rosca"></div>
+</div>
+  
+<div style="float: left; width: 52%; height: 50%; border: 5px solid white;">
+  <h2 style="margin-left: 10px;">Atendimentos pendentes</h2>
+      <div id="pendentes"></div>
+</div>
+</div>
+
+<div>
+<div style="width: 48%; height: 50%; float: left; border: 5px solid white;">
+<h3 style="margin-left: 10px;">Top 5 chamados</h3>
+    <div id="roscaMotivos"></div>
+</div> 
+    
+<div style="float: left; width: 52%; height: 50%; border: 5px solid white;">
+<h3 style="margin-left: 10px;">Top 5 clientes</h3>
+    <div  id="roscaEmpresas"></div>
+</div> 
+</div>
+
+<script>
+
+var optionsR = {
+  chart: {
+    type: 'donut',
+    width: "55%",
+    height: "80%"
+  },
+
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+        
+        }
+      }
+    }
+  },
+
+  colors:['#ff8c00', '#E91E63', '#9C27B0'],
+  
+  series: JSON.parse('{{data}}'),
+  labels: JSON.parse('{{names|safe}}')
+}
+var rosca = new ApexCharts(document.querySelector("#rosca"), optionsR);
+rosca.render();
+
+
+var optionConcluidos = {
+    chart: {
+      height: 280,
+      type: "radialBar",
+    },
+  
+    series: [JSON.parse('{{pendentes}}')],
+    colors: ["#20E647"],
+    plotOptions: {
+      radialBar: {
+        hollow: {
+          margin: 0,
+          size: "80%",
+          background: "#293450"
+        },
+        track: {
+          dropShadow: {
+            enabled: true,
+            top: 2,
+            left: 0,
+            blur: 4,
+            opacity: 0.15
+          }
+        },
+        dataLabels: {
+          name: {
+            offsetY: -10,
+            color: "#fff",
+            fontSize: "13px"
+          },
+          value: {
+            color: "#fff",
+            fontSize: "30px",
+            show: true
+          }
+        }
+      }
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        shade: "dark",
+        type: "vertical",
+        gradientToColors: ["#87D4F9"],
+        stops: [0, 100]
+      }
+    },
+    stroke: {
+      lineCap: "round"
+    },
+    labels: ["Pendências"]
+};
+
+
+var pendentes = new ApexCharts(document.querySelector("#pendentes"), optionConcluidos);
+pendentes.render()
+
+var principaisMotivos = {
+  chart: {
+    type: 'donut',
+    width: "68%",
+    height: "90%"
+  },
+
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+        
+        }
+      }
+    }
+  },
+
+  
+  series: JSON.parse('{{contMotivo}}'),
+  labels: JSON.parse('{{chamadosMotivo|safe}}')
+}
+var roscaMotivos = new ApexCharts(document.querySelector("#roscaMotivos"), principaisMotivos);
+roscaMotivos.render();
+
+
+
+
+var principaisEmpresas = {
+  chart: {
+    type: 'bar',
+    width: "70%",
+    height: "90%"
+  },
+
+  series: [{
+    name: 'Chamados',
+    data: JSON.parse('{{dataEmpresas}}')
+  }],
+  xaxis: {
+    categories:JSON.parse('{{empresas|safe}}'),
+
+    labels: {
+          show: true,
+          maxHeight: 200,
+         
+          style: {
+              colors: '#ffffff',
+          },
+          
+          datetimeFormatter: {
+             
+          },
+      },
+  }
+  
+}
+var roscaEmpresas = new ApexCharts(document.querySelector("#roscaEmpresas"), principaisEmpresas);
+roscaEmpresas.render();
+
+
+</script>
+{% endblock %}
+
+

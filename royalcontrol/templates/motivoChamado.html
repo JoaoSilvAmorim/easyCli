@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Cadastre um motivo de chamado</h3>
+
+{% if form.errors %}
+  <ul>
+    {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+            <h4>{{error}}</h4>
+        {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %} 
+
+<div class="card" style="max-width: 45%; max-height: 45%;">
+    <div style="margin-left: 25px;" class="card-body">
+
+        <div style="float:right">
+            <button style="margin-top: 30px;"><a href="{% url 'cadAtendimento' %}">Voltar a página de atendimento</a></button>
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="nome">Nome</label>
+            <input style="width: 200px" type="text" name="nome" class="form-control" required>
+<br>
+            
+            <button type="submit" onclick="funcao1()" class="btn btn-success mt-2">Finalizar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

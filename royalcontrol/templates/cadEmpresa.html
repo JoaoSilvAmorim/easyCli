@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Cadastro de empresa</h3>
+
+{% if form.errors %}
+  <ul>
+    {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+        <div class="alert alert-primary" style="background-color: rgb(0, 0, 36); max-width: 50%;" role="alert">
+          {{error}}
+        </div>
+        {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %} 
+    
+<div class="card">
+    <div style="margin-left: 25px;" class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="cnpjCpf">CPF/CNPJ
+            <input size="40" name="cnpjCpf" onblur="consultaCNPJ(this.value);" class="form-control" ></label>
+    
+            <label for="nome">Nome
+            <input size="40" type="text" name="nome" id="nome" class="form-control"></label>
+
+            <label for="nomeFantasia">Nome fantasia
+            <input size="40" name="nomeFantasia" id="nomeFantasia" class="form-control" ></label>
+
+           
+            <label for="email">Email
+            <input size="40" name="email" id="email" class="form-control"></label>
+
+            <button><a href="{% url 'cadAtendimento' %}">Voltar a página de atendimento</a></button>
+<br><br>
+            <label>Cep <input name="endereco[cep]" type="text" id="cep" value="" size="10" maxlength="9" class="form-control" /></label><br />
+            <label>Rua<input name="endereco[rua]" type="text" id="rua" size="60" class="form-control" /></label><br />
+            <label>Bairro <input name="endereco[bairro]" type="text" id="bairro" size="40" class="form-control" class="form-control" /></label><br />
+            <label>Cidade <input name="endereco[cidade]" type="text" id="cidade" size="40" class="form-control" /></label><br />
+            <label>Estado <input name="endereco[uf]" type="text" id="uf" size="2" class="form-control" /></label><br />
+<br>
+            <button onclick="funcao1()" type="submit"  class="btn btn-success mt-2">Salvar</button>
+        </form>
+    </div>
+</div>
+<br>
+<div class="container" style="width: 100%;">
+    <label for="">Pesquisar</label>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar...">
+    <br>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">CNPJ/CPF</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Fantasia</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Bairro</th>
+        <th scope="col">Rua</th>
+        </tr>
+      </thead>
+
+      <tbody id="myTable">
+        {% for empresa in empresas %}
+          <tr>
+            <td scope="row">{{ forloop.counter }}</td>
+            <td>{{ empresa.cnpjCpf }}</td>
+            <td>{{ empresa.nome }}</td>
+            <td>{{ empresa.nomeFantasia }}</td>
+            <td>{{ empresa.endereco.cidade }}</td>
+            <td>{{ empresa.endereco.bairro }}</td>
+            <td>{{ empresa.endereco.rua }}</td> 
+            <td><button  class="btn btn-warning"><a href="{% url 'redUpdateEmpresa' empresa.id %}">Editar</a></button></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
