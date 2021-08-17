@@ -1,7 +1,9 @@
+<br>
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<div style='border: 5px solid white;'>
 
+<div style='border: 5px solid white;'>
     <h3>Filtrar por data</h3>
     <form style="margin-left: 5px;" action="{% url 'filtrarRelatorio' %}" method="POST" >
       {% csrf_token %}
@@ -13,7 +15,7 @@
   
           <button onclick="funcao1()" type="submit"  class="btn btn-success mt-2">Filtrar</button>
 
-          <button style="margin-left: 10%;"><a href="{% url 'cadAtendimento' %}">Voltar a página de atendimento</a></button>
+         <!--  <button style="margin-left: 10%;"><a href="{% url 'cadAtendimento' %}">Voltar a página de atendimento</a></button> -->
     </form>
 </div>
 
@@ -38,7 +40,7 @@
     
 <div style="float: left; width: 52%; height: 50%; border: 5px solid white;">
 <h3 style="margin-left: 10px;">Top 5 clientes</h3>
-    <div  id="roscaEmpresas"></div>
+    <div style="margin-left: 25px;"  id="roscaEmpresas"></div>
 </div> 
 </div>
 
@@ -159,7 +161,7 @@ roscaMotivos.render();
 var principaisEmpresas = {
   chart: {
     type: 'bar',
-    width: "70%",
+    width: "90%",
     height: "90%"
   },
 
